@@ -9,8 +9,14 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 IHost host = Host.CreateDefaultBuilder(args)
+    .UseWindowsService()
     .ConfigureServices(services =>
     {
+        services.AddWindowsService(options =>
+        {
+            options.ServiceName = ".NET Joke Service";
+        });
+        services.AddSingleton<JokeService>();
         services.AddHostedService<Worker>();
     })
     .UseSerilog()
