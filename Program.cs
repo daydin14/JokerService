@@ -1,7 +1,8 @@
 using JokerService;
 using Serilog;
 
-var myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+//var myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+var myDocuments = Environment.CurrentDirectory;
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     // .WriteTo.File("log-.txt", rollingInterval: RollingInterval.Minute)
