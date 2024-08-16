@@ -77,7 +77,7 @@ To publish the service as a Windows Service, follow these steps:
 
   [Microsoft Learning](https://learn.microsoft.com/en-us/dotnet/core/extensions/windows-service?pivots=dotnet-7-0).
 
-  ## Version History
+## Version History
 
 - Version [1.0.0.1] Minor CleanUp and Refactoring
 - Version [1.0.0.0] Original Release
