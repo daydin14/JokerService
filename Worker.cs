@@ -1,13 +1,28 @@
 namespace JokerService;
 
+/// <summary>
+/// Represents a worker that performs background tasks.
+/// </summary>
 public class Worker : BackgroundService
 {
     private readonly JokeService _jokeService;
     private readonly ILogger<Worker> _logger;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Worker"/> class.
+    /// </summary>
+    /// <param name="jokeService">The joke service.</param>
+    /// <param name="logger">The logger.</param>
     public Worker(JokeService jokeService, ILogger<Worker> logger)
     {
         (_jokeService, _logger) = (jokeService, logger);
     }
+
+    /// <summary>
+    /// Executes the background task asynchronously.
+    /// </summary>
+    /// <param name="stoppingToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         try
@@ -15,7 +30,8 @@ public class Worker : BackgroundService
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                string joke = _jokeService.GetJoke();
+                string joke = _jokeService.GetRandomJoke();
+
                 _logger.LogWarning("{Joke}", joke);
                 await Task.Delay(1000, stoppingToken);
                 // await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
@@ -41,11 +57,23 @@ public class Worker : BackgroundService
             Environment.Exit(1);
         }
     }
+
+    /// <summary>
+    /// Starts the background service asynchronously.
+    /// </summary>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public override Task StartAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("BackgroundService starting up...");
         return base.StartAsync(cancellationToken);
     }
+
+    /// <summary>
+    /// Stops the background service asynchronously.
+    /// </summary>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public override Task StopAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("BackgroundService stopping!");

@@ -14,6 +14,7 @@ This repository contains a .NET Worker Windows Service implementation using `Bac
 - [Features](#features)
 - [Publishing](#publishing)
 - [Credits](#credits)
+- [Version History](#version-history)
 
 ## Getting Started
 
@@ -75,3 +76,8 @@ To publish the service as a Windows Service, follow these steps:
   [RobertsDevTalk YouTube video](https://www.youtube.com/watch?v=aHC-4ivVDEQ&ab_channel=RobertsDevTalk).
 
   [Microsoft Learning](https://learn.microsoft.com/en-us/dotnet/core/extensions/windows-service?pivots=dotnet-7-0).
+
+  ## Version History
+
+- Version [1.0.0.1] Minor CleanUp and Refactoring
+- Version [1.0.0.0] Original Release
