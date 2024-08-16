@@ -1,19 +1,25 @@
 namespace JokerService;
 
-public sealed class JokeService
+public class JokeService
 {
-    public string GetJoke()
-    {
-        Joke joke = _jokes.ElementAt(
-            Random.Shared.Next(_jokes.Count));
+    readonly record struct Joke(string Setup, string Punchline);
 
+    /// <summary>
+    /// Gets a random joke from the collection.
+    /// </summary>
+    /// <returns>A string representing the random joke.</returns>
+    public string GetRandomJoke()
+    {
+        Joke joke = _jokes.ElementAt(Random.Shared.Next(_jokes.Count));
         return $"{joke.Setup}{Environment.NewLine}{joke.Punchline}";
     }
 
-    // Programming jokes borrowed from:
-    // https://github.com/eklavyadev/karljoke/blob/main/source/jokes.json
-    private readonly HashSet<Joke> _jokes = new()
-    {
+    /// <summary>
+    /// Programming jokes borrowed from:
+    /// https://github.com/eklavyadev/karljoke/blob/main/source/jokes.json
+    /// </summary>
+    private readonly HashSet<Joke> _jokes =
+    [
         new Joke("What's the best thing about a Boolean?", "Even if you're wrong, you're only off by a bit."),
         new Joke("What's the object-oriented way to become wealthy?", "Inheritance"),
         new Joke("Why did the programmer quit their job?", "Because they didn't get arrays."),
@@ -37,7 +43,5 @@ public sealed class JokeService
         new Joke("What did the router say to the doctor?", "It hurts when IP."),
         new Joke("An IPv6 packet is walking out of the house.", "He goes nowhere."),
         new Joke("3 SQL statements walk into a NoSQL bar. Soon, they walk out", "They couldn't find a table.")
-    };
+    ];
 }
-
-readonly record struct Joke(string Setup, string Punchline);
