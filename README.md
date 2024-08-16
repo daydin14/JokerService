@@ -38,6 +38,7 @@ This repository contains a .NET Worker Windows Service implementation using `Bac
 - Background tasks and worker logic.
 - Logging Computer Programming Jokes with `Serilog` to the current directory.
   (Creates a `Logs` folder in the project's root directory.)
+- Email Service to send the jokes to the specified email address.
 
 ## Publishing
 
@@ -78,6 +79,6 @@ To publish the service as a Windows Service, follow these steps:
   [Microsoft Learning](https://learn.microsoft.com/en-us/dotnet/core/extensions/windows-service?pivots=dotnet-7-0).
 
 ## Version History
-
+- Version [1.0.1.0] Added Email Service 
 - Version [1.0.0.1] Minor CleanUp and Refactoring
 - Version [1.0.0.0] Original Release
