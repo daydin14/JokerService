@@ -8,12 +8,14 @@ Log.Logger = new LoggerConfiguration()
 
 IHost host = Host.CreateDefaultBuilder(args)
     .UseWindowsService()
-    .ConfigureServices(services =>
+    .ConfigureServices((hostContext, services) =>
     {
         services.AddWindowsService(options =>
         {
             options.ServiceName = ".NET Joke Service";
         });
+        services.Configure<SmtpSettings>(hostContext.Configuration.GetSection("SmtpSettings"));
+        services.AddSingleton<EmailService>();
         services.AddSingleton<JokeService>();
         services.AddHostedService<Worker>();
     })
