@@ -34,7 +34,7 @@ namespace JokerService.Services
 
             var mailMessage = new MailMessage
             {
-                From = new MailAddress(_smtpSettings.UserName),
+                From = new MailAddress(_smtpSettings.UserName!),
                 Subject = subject,
                 Body = body,
                 IsBodyHtml = false
