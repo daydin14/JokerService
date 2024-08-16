@@ -65,7 +65,7 @@ public class Worker : BackgroundService
     /// <returns>A task representing the asynchronous operation.</returns>
     public override Task StartAsync(CancellationToken cancellationToken)
     {
-        _logger.LogInformation("BackgroundService starting up...");
+        _logger.LogInformation("The Joker is here!...");
         return base.StartAsync(cancellationToken);
     }
 
@@ -76,7 +76,7 @@ public class Worker : BackgroundService
     /// <returns>A task representing the asynchronous operation.</returns>
     public override Task StopAsync(CancellationToken cancellationToken)
     {
-        _logger.LogInformation("BackgroundService stopping!");
+        _logger.LogInformation("The Joker has escaped!");
         return base.StopAsync(cancellationToken);
     }
 }
