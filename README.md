@@ -4,6 +4,7 @@
 [![Windows Service](https://img.shields.io/badge/Windows_Service-BackgroundService-blue.svg)](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-6.0)
 [![.NET 8](https://img.shields.io/badge/.NET-8-512BD4.svg)](https://dotnet.microsoft.com/)
 [![Serilog](https://img.shields.io/badge/Serilog-Logging-green.svg)](https://serilog.net/)
+[![Email Service](https://img.shields.io/badge/Email_Service-SMTP-blue.svg)](https://docs.microsoft.com/en-us/dotnet/api/system.net.mail.smtpclient?view=net-6.0)
 [![YouTube](https://img.shields.io/badge/YouTube-Video-red.svg)](https://www.youtube.com/watch?v=aHC-4ivVDEQ&ab_channel=RobertsDevTalk)
 
 This repository contains a .NET Worker Windows Service implementation using `BackgroundService`. The service performs background tasks and demonstrates how to create a long-running service in a Windows environment by logging Computer Programming Jokes.
@@ -38,6 +39,7 @@ This repository contains a .NET Worker Windows Service implementation using `Bac
 - Background tasks and worker logic.
 - Logging Computer Programming Jokes with `Serilog` to the current directory.
   (Creates a `Logs` folder in the project's root directory.)
+- Email Service to send the jokes to the specified email address.
 
 ## Publishing
 
@@ -78,6 +80,6 @@ To publish the service as a Windows Service, follow these steps:
   [Microsoft Learning](https://learn.microsoft.com/en-us/dotnet/core/extensions/windows-service?pivots=dotnet-7-0).
 
 ## Version History
-
+- Version [1.0.1.0] Added Email Service 
 - Version [1.0.0.1] Minor CleanUp and Refactoring
 - Version [1.0.0.0] Original Release
