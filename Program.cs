@@ -3,7 +3,7 @@ using Serilog;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
-    .WriteTo.File(Path.Combine(Environment.CurrentDirectory, "Logs", "log-.txt"), rollingInterval: RollingInterval.Minute)
+    .WriteTo.File(Path.Combine(Environment.CurrentDirectory, "Logs", "log-.txt"), rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
 IHost host = Host.CreateDefaultBuilder(args)
