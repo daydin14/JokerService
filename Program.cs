@@ -2,10 +2,15 @@ using JokerService;
 using JokerService.Services;
 using JokerService.Settings;
 using Serilog;
+using Microsoft.Extensions.Options;
+
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .Build();
 
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .WriteTo.File(Path.Combine(Environment.CurrentDirectory, "Logs", "log-.txt"), rollingInterval: RollingInterval.Day)
+    .ReadFrom.Configuration(configuration)
     .CreateLogger();
 
 IHost host = Host.CreateDefaultBuilder(args)
