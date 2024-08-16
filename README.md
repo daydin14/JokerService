@@ -40,6 +40,8 @@ This repository contains a .NET Worker Windows Service implementation using `Bac
 - Logging Computer Programming Jokes with `Serilog` to the current directory.
   (Creates a `Logs` folder in the project's root directory.)
 - Email Service to send the jokes to the specified email address.
+- Timer settings to control the interval of the background tasks.
+- Microsoft Teams Channel Integration
 
 ## Publishing
 
@@ -80,6 +82,7 @@ To publish the service as a Windows Service, follow these steps:
   [Microsoft Learning](https://learn.microsoft.com/en-us/dotnet/core/extensions/windows-service?pivots=dotnet-7-0).
 
 ## Version History
+- Version [1.0.1.1] Updated Serilog Configuration, Added TimersSettings, WIP MS Teams Sink Integration
 - Version [1.0.1.0] Added Email Service 
 - Version [1.0.0.1] Minor CleanUp and Refactoring
 - Version [1.0.0.0] Original Release
