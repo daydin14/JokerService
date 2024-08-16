@@ -50,7 +50,6 @@ namespace JokerService.Services
             catch (Exception ex)
             {
                 logger.LogError(ex, "Failed to send email.\r\n{Error}", ex);
-                throw;
             }
         }
     }

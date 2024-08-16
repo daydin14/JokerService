@@ -20,7 +20,6 @@
             catch (Exception ex)
             {
                 logger.LogError(ex, "Failed to send MS Teams Post.\r\n{Error}", ex);
-                throw;
             }
         }
     }
