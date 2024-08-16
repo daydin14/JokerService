@@ -12,6 +12,7 @@ public class Worker : BackgroundService
     private readonly EmailService _emailService;
     private readonly MsTeamsService _msTeamsService;
     private readonly TimersSettings _timers;
+    private readonly EmailSettings _emailSettings;
     private readonly ILogger<Worker> _logger;
 
     /// <summary>
@@ -19,11 +20,8 @@ public class Worker : BackgroundService
     /// </summary>
     /// <param name="jokeService">The joke service.</param>
     /// <param name="logger">The logger.</param>
-    /// /// <param name="emailService">The email service.</param>
-    public Worker(JokeService jokeService, EmailService emailService, MsTeamsService msTeamsService, TimersSettings timers, ILogger<Worker> logger)
-    {
-        (_jokeService, _emailService, _msTeamsService, _timers, _logger) = (jokeService, emailService, msTeamsService, timers, logger);
-    }
+    public Worker(JokeService jokeService, EmailService emailService, MsTeamsService msTeamsService, TimersSettings timers, EmailSettings emailSettings, ILogger<Worker> logger) =>
+        (_jokeService, _emailService, _msTeamsService, _timers, _emailSettings, _logger) = (jokeService, emailService, msTeamsService, timers, emailSettings, logger);
 
     /// <summary>
     /// Executes the background task asynchronously.
@@ -53,8 +51,9 @@ public class Worker : BackgroundService
 
                 // Send joke via email
                 _logger.LogInformation("Sending joke via email...");
+                var emailSubject = _emailSettings.Subject + "\tProgramming Joke Incomming!";
                 await Task.Delay(_timers.EmailServiceDelay * 1000, stoppingToken); // 5 Second Delay before sending the email.
-                await _emailService.SendEmailAsync("recipient@daydin14.com", "Programming Joke Incomming!", joke);
+                await _emailService.SendEmailAsync(_emailSettings.ToAddress, emailSubject, joke);
 
                 // Send joke via Microsoft Teams
                 //_logger.LogInformation("Sending joke via Microsoft Teams...");

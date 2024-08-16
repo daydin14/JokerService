@@ -11,36 +11,36 @@ namespace JokerService.Services
     /// <remarks>
     /// Initializes a new instance of the <see cref="EmailService"/> class.
     /// </remarks>
-    /// <param name="smtpSettings">The SMTP settings.</param>
+    /// <param name="emailSettings">The Email settings.</param>
     /// <param name="logger">The logger.</param>
-    public class EmailService(IOptions<SmtpSettings> smtpSettings, ILogger<EmailService> logger)
+    public class EmailService(IOptions<EmailSettings> emailSettings, ILogger<EmailService> logger)
     {
-        private readonly SmtpSettings _smtpSettings = smtpSettings.Value;
+        private readonly EmailSettings _emailSettings = emailSettings.Value;
 
         /// <summary>
         /// Sends an email asynchronously.
         /// </summary>
-        /// <param name="to">The recipient email address.</param>
+        /// <param name="toAddress">The recipient email address.</param>
         /// <param name="subject">The email subject.</param>
         /// <param name="body">The email body.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
-        public async Task SendEmailAsync(string to, string subject, string body)
+        /// <returns>An asynchronus task operation for sending emails.</returns>
+        public async Task SendEmailAsync(string toAddress, string subject, string body)
         {
-            using var client = new SmtpClient(_smtpSettings.Host, _smtpSettings.Port)
+            using var client = new SmtpClient(_emailSettings.Host, _emailSettings.Port)
             {
-                Credentials = new NetworkCredential(_smtpSettings.UserName, _smtpSettings.Password),
-                EnableSsl = _smtpSettings.EnableSsl
+                Credentials = new NetworkCredential(_emailSettings.FromAddress, _emailSettings.Password),
+                EnableSsl = _emailSettings.EnableSsl
             };
 
             var mailMessage = new MailMessage
             {
-                From = new MailAddress(_smtpSettings.UserName!),
+                From = new MailAddress(_emailSettings.FromAddress),
                 Subject = subject,
                 Body = body,
                 IsBodyHtml = false
             };
 
-            mailMessage.To.Add(to);
+            mailMessage.To.Add(toAddress);
 
             try
             {
