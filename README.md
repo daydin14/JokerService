@@ -82,7 +82,16 @@ To publish the service as a Windows Service, follow these steps:
   [Microsoft Learning](https://learn.microsoft.com/en-us/dotnet/core/extensions/windows-service?pivots=dotnet-7-0).
 
 ## Version History
-- Version [1.0.1.1] Updated Serilog Configuration, Added TimersSettings, WIP MS Teams Sink Integration
+- Version [1.0.1.2] 
+	- Refactored Serilog Configuration to separate class within Settings\ directory. 
+	- Renamed SmtpSettings to EmailSettings and made calls configurable
+	- Added XML Documentation Comments.	
+	___
+- Version [1.0.1.1] 
+	- Updated Serilog Configuration
+	- Added TimersSettings
+	- WIP MS Teams Sink Integration
+	___
 - Version [1.0.1.0] Added Email Service 
 - Version [1.0.0.1] Minor CleanUp and Refactoring
 - Version [1.0.0.0] Original Release
