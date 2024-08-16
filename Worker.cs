@@ -1,3 +1,5 @@
+using JokerService.Services;
+
 namespace JokerService;
 
 /// <summary>
@@ -29,31 +31,34 @@ public class Worker : BackgroundService
     {
         try
         {
-            await Task.Delay(10000, stoppingToken); // 10 Second Delay on Project StartUp
+            await Task.Delay(10000, stoppingToken); // 10 Second Delay on Project StartUp.
             while (!stoppingToken.IsCancellationRequested)
             {
                 // Log the current time to the console...
                 var currentTime = DateTime.Now.ToString("T");
                 _logger.LogInformation("Getting a random joke... {time}", currentTime);
+                await Task.Delay(3000, stoppingToken); // 3 Second Delay before getting a random joke.
 
-                // Get a random joke from the collection. If the joke is null, throw an exception...
+                /*
+                    Get a random joke from the "HashSet Record Struct" collection.
+                    If the joke is null, throw an exception...
+                    Log the random joke to the console.
+                */
                 string joke = _jokeService.GetRandomJoke() ?? throw new InvalidOperationException("The joke is null!...");
-                // Log the random joke to the console...
                 _logger.LogInformation("{Joke}", joke);
 
                 // Send joke via email
                 _logger.LogInformation("Sending joke via email...");
-                await Task.Delay(10000, stoppingToken); // 10 Second Delay
+                await Task.Delay(10000, stoppingToken); // 10 Second Delay before sending the email.
                 await _emailService.SendEmailAsync("recipient@daydin14.com", "Programming Joke Incomming!", joke);
-
+                
+                // Delay for a period of time before getting another random joke...
 #if DEBUG
-                // Simulate a delay of 10 second before getting another random joke...
                 _logger.LogWarning("Waiting 10 seconds before getting another random joke...");
-                await Task.Delay(10000, stoppingToken);
+                await Task.Delay(10000, stoppingToken); // 10 Seconds (DEBUG)
 #else
-                // Simulate a delay of 1 hour before getting another random joke...
                 _logger.LogWarning("Waiting 1 hour before getting another random joke...");
-                await Task.Delay(TimeSpan.FromHours(1), stoppingToken);
+                await Task.Delay(TimeSpan.FromHours(1), stoppingToken); // 1 Hour (RELEASE)
 #endif
             }
         }
@@ -67,14 +72,14 @@ public class Worker : BackgroundService
         {
             _logger.LogError(ex, "{Message}", ex);
             /*
-            Terminates this process and returns an exit code to the operating system.
-            This is required to avoid the 'BackgroundServiceExceptionBehavior', which performs one of two scenarios:
+                Terminates this process and returns an exit code to the operating system.
+                This is required to avoid the 'BackgroundServiceExceptionBehavior', which performs one of two scenarios:
 
-            1. When set to "Ignore": will do nothing at all, errors cause zombie services.
-            2. When set to "StopHost": will cleanly stop the host, and log errors.
+                1. When set to "Ignore": will do nothing at all, errors cause zombie services.
+                2. When set to "StopHost": will cleanly stop the host, and log errors.
 
-            In order for the Windows Service Management system to leverage configured
-            recovery options, we need to terminate the process with a non-zero exit code.
+                In order for the Windows Service Management system to leverage configured
+                recovery options, we need to terminate the process with a non-zero exit code.
             */
             Environment.Exit(1);
         }

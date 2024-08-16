@@ -1,4 +1,6 @@
 using JokerService;
+using JokerService.Services;
+using JokerService.Settings;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()

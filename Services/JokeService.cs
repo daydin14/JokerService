@@ -1,4 +1,4 @@
-namespace JokerService;
+namespace JokerService.Services;
 
 public class JokeService
 {

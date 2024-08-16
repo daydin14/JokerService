@@ -1,36 +1,21 @@
 using System.Net;
 using System.Net.Mail;
+using JokerService.Settings;
 using Microsoft.Extensions.Options;
 
-namespace JokerService
+namespace JokerService.Services
 {
-    public class SmtpSettings
-    {
-        public string Host { get; set; }
-        public int Port { get; set; }
-        public bool EnableSsl { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-    }
-
     /// <summary>
     /// Represents a service for sending emails.
     /// </summary>
-    public class EmailService
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="EmailService"/> class.
+    /// </remarks>
+    /// <param name="smtpSettings">The SMTP settings.</param>
+    /// <param name="logger">The logger.</param>
+    public class EmailService(IOptions<SmtpSettings> smtpSettings, ILogger<EmailService> logger)
     {
-        private readonly SmtpSettings _smtpSettings;
-        private readonly ILogger<EmailService> _logger;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EmailService"/> class.
-        /// </summary>
-        /// <param name="smtpSettings">The SMTP settings.</param>
-        /// <param name="logger">The logger.</param>
-        public EmailService(IOptions<SmtpSettings> smtpSettings, ILogger<EmailService> logger)
-        {
-            _smtpSettings = smtpSettings.Value;
-            _logger = logger;
-        }
+        private readonly SmtpSettings _smtpSettings = smtpSettings.Value;
 
         /// <summary>
         /// Sends an email asynchronously.
@@ -60,11 +45,11 @@ namespace JokerService
             try
             {
                 await client.SendMailAsync(mailMessage);
-                _logger.LogInformation("Email sent successfully.");
+                logger.LogInformation("Email sent successfully.");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to send email.");
+                logger.LogError(ex, "Failed to send email.\r\n{Error}", ex);
                 throw;
             }
         }
