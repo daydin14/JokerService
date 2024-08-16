@@ -6,8 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>dotnet-JokerService-3525a810-2b2f-4142-bf2c-124e86647214</UserSecretsId>
     <Platforms>AnyCPU;x64</Platforms>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
+    <AssemblyVersion>1.0.1.1</AssemblyVersion>
+    <FileVersion>1.0.1.1</FileVersion>
     <Copyright>Copyright ©️ David Aydin 2024</Copyright>
     <Description>Dotnet Worker Service for Computer Programming Jokes</Description>
     <RepositoryUrl>https://github.com/daydin14/JokerService</RepositoryUrl>
@@ -19,7 +19,9 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="8.0.0" />
     <PackageReference Include="Serilog" Version="4.0.1" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.2" />
     <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.MicrosoftTeams.Alternative" Version="1.4.7" />
   </ItemGroup>
 </Project>

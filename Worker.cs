@@ -1,4 +1,5 @@
 using JokerService.Services;
+using JokerService.Settings;
 
 namespace JokerService;
 
@@ -8,8 +9,10 @@ namespace JokerService;
 public class Worker : BackgroundService
 {
     private readonly JokeService _jokeService;
-    private readonly ILogger<Worker> _logger;
     private readonly EmailService _emailService;
+    private readonly MsTeamsService _msTeamsService;
+    private readonly TimersSettings _timers;
+    private readonly ILogger<Worker> _logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Worker"/> class.
@@ -17,9 +20,9 @@ public class Worker : BackgroundService
     /// <param name="jokeService">The joke service.</param>
     /// <param name="logger">The logger.</param>
     /// /// <param name="emailService">The email service.</param>
-    public Worker(JokeService jokeService, EmailService emailService, ILogger<Worker> logger)
+    public Worker(JokeService jokeService, EmailService emailService, MsTeamsService msTeamsService, TimersSettings timers, ILogger<Worker> logger)
     {
-        (_jokeService, _emailService, _logger) = (jokeService, emailService, logger);
+        (_jokeService, _emailService, _msTeamsService, _timers, _logger) = (jokeService, emailService, msTeamsService, timers, logger);
     }
 
     /// <summary>
@@ -31,13 +34,14 @@ public class Worker : BackgroundService
     {
         try
         {
-            await Task.Delay(10000, stoppingToken); // 10 Second Delay on Project StartUp.
+            await Task.Delay(_timers.StartUpDelay * 1000, stoppingToken); // 5 Second Delay on Project StartUp.
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 // Log the current time to the console...
                 var currentTime = DateTime.Now.ToString("T");
                 _logger.LogInformation("Getting a random joke... {time}", currentTime);
-                await Task.Delay(3000, stoppingToken); // 3 Second Delay before getting a random joke.
+                await Task.Delay(_timers.GetRandomJokeDelay * 1000, stoppingToken); // 3 Second Delay before getting a random joke.
 
                 /*
                     Get a random joke from the "HashSet Record Struct" collection.
@@ -49,13 +53,18 @@ public class Worker : BackgroundService
 
                 // Send joke via email
                 _logger.LogInformation("Sending joke via email...");
-                await Task.Delay(10000, stoppingToken); // 10 Second Delay before sending the email.
+                await Task.Delay(_timers.EmailServiceDelay * 1000, stoppingToken); // 5 Second Delay before sending the email.
                 await _emailService.SendEmailAsync("recipient@daydin14.com", "Programming Joke Incomming!", joke);
-                
+
+                // Send joke via Microsoft Teams
+                //_logger.LogInformation("Sending joke via Microsoft Teams...");
+                //await Task.Delay((int)(_timers.MsTeamsServiceDelay! * 1000), stoppingToken); // 5 Second Delay before sending the message.
+                //await _msTeamsService.SendTeamsPostAsync("Async MS Teams Post Message");
+
                 // Delay for a period of time before getting another random joke...
 #if DEBUG
                 _logger.LogWarning("Waiting 10 seconds before getting another random joke...");
-                await Task.Delay(10000, stoppingToken); // 10 Seconds (DEBUG)
+                await Task.Delay((int)(_timers.DebugConstantDelay! * 1000), stoppingToken); // 10 Seconds (DEBUG)
 #else
                 _logger.LogWarning("Waiting 1 hour before getting another random joke...");
                 await Task.Delay(TimeSpan.FromHours(1), stoppingToken); // 1 Hour (RELEASE)
