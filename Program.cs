@@ -28,6 +28,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<TimersSettings>>().Value);
 
         services.AddSingleton<EmailService>();
+        services.AddSingleton<MsTeamsService>();
         services.AddSingleton<JokeService>();
         services.AddHostedService<Worker>();
     })
