@@ -13,7 +13,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     {
         services.AddWindowsService(options =>
         {
-            options.ServiceName = ".NET Joke Service";
+            options.ServiceName = "Jokers Manor";
         });
 
         services.Configure<EmailSettings>(hostContext.Configuration.GetSection("SmtpSettings"));

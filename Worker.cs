@@ -19,6 +19,10 @@ public class Worker : BackgroundService
     /// Initializes a new instance of the <see cref="Worker"/> class.
     /// </summary>
     /// <param name="jokeService">The joke service.</param>
+    /// <param name="emailService">The email service.</param>
+    /// <param name="msTeamsService">The Microsoft Teams service.</param>
+    /// <param name="timers">The timers settings.</param>
+    /// <param name="emailSettings">The email settings.</param>
     /// <param name="logger">The logger.</param>
     public Worker(JokeService jokeService, EmailService emailService, MsTeamsService msTeamsService, TimersSettings timers, EmailSettings emailSettings, ILogger<Worker> logger) =>
         (_jokeService, _emailService, _msTeamsService, _timers, _emailSettings, _logger) = (jokeService, emailService, msTeamsService, timers, emailSettings, logger);
@@ -65,8 +69,8 @@ public class Worker : BackgroundService
                 _logger.LogWarning("Waiting 10 seconds before getting another random joke...");
                 await Task.Delay((int)(_timers.DebugConstantDelay! * 1000), stoppingToken); // 10 Seconds (DEBUG)
 #else
-                _logger.LogWarning("Waiting 1 hour before getting another random joke...");
-                await Task.Delay(TimeSpan.FromHours(1), stoppingToken); // 1 Hour (RELEASE)
+                    _logger.LogWarning("Waiting 1 hour before getting another random joke...");
+                    await Task.Delay(TimeSpan.FromHours(1), stoppingToken); // 1 Hour (RELEASE)
 #endif
             }
         }

@@ -1,7 +1,13 @@
 namespace JokerService.Services;
 
+/// <summary>
+/// Represents a service for retrieving jokes.
+/// </summary>
 public class JokeService
 {
+    /// <summary>
+    /// Represents a joke with a setup and punchline.
+    /// </summary>
     readonly record struct Joke(string Setup, string Punchline);
 
     /// <summary>
