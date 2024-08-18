@@ -12,6 +12,10 @@ public class JokeService
 
     public JokeService(ILogger<JokeService> logger, JokeBuilderProcess jokeBuilderProcess) => (_logger, _jokeBuilderProcess) = (logger, jokeBuilderProcess);
 
+    /// <summary>
+    /// Executes the joke builder process asynchronously.
+    /// </summary>
+    /// <param name="stoppingToken">The cancellation token to stop the execution.</param>
     public async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         try
