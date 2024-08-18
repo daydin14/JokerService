@@ -18,6 +18,7 @@ IHost host = Host.CreateDefaultBuilder(args)
 
         services.Configure<EmailSettings>(hostContext.Configuration.GetSection("SmtpSettings"));
         services.Configure<TimersSettings>(hostContext.Configuration.GetSection("TimersSettings"));
+        services.Configure<FileSystemSettings>(hostContext.Configuration.GetSection("FileSystemSettings"));
 
         // Register TimersSettings as a singleton
         services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<TimersSettings>>().Value);
