@@ -12,5 +12,15 @@
                 return !string.IsNullOrWhiteSpace(RemoteJokesDirectory);
             }
         }
+
+        public bool CreateDirectoryIfNotExists(string directoryPath)
+        {
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+                return true;
+            }
+            return false;
+        }
     }
 }
