@@ -1,11 +1,14 @@
 # JokerService
 
+![System.Text](https://img.shields.io/badge/System.Text-000000?style=flat-square&logo=dotnet&logoColor=white)
 [![C#](https://img.shields.io/badge/C%23-Programming-blueviolet)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![Windows Service](https://img.shields.io/badge/Windows_Service-BackgroundService-blue.svg)](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-6.0)
 [![.NET 8](https://img.shields.io/badge/.NET-8-512BD4.svg)](https://dotnet.microsoft.com/)
 [![Serilog](https://img.shields.io/badge/Serilog-Logging-green.svg)](https://serilog.net/)
-[![Email Service](https://img.shields.io/badge/Email_Service-SMTP-blue.svg)](https://docs.microsoft.com/en-us/dotnet/api/system.net.mail.smtpclient?view=net-6.0)
-[![YouTube](https://img.shields.io/badge/YouTube-Video-red.svg)](https://www.youtube.com/watch?v=aHC-4ivVDEQ&ab_channel=RobertsDevTalk)
+![Email Service SMTP](https://img.shields.io/badge/Email%20Service%20SMTP-D14836?style=flat-square&logo=gmail&logoColor=white)
+![Microsoft Teams](https://img.shields.io/badge/Microsoft%20Teams-6264A7?style=flat-square&logo=microsoft-teams&logoColor=white)
+![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white)
+
 
 This repository contains a .NET Worker Windows Service implementation using `BackgroundService`. The service performs background tasks and demonstrates how to create a long-running service in a Windows environment by logging Computer Programming Jokes.
 
