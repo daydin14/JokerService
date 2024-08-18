@@ -1,11 +1,14 @@
 # JokerService
 
+![System.Text](https://img.shields.io/badge/System.Text-000000?style=flat-square&logo=dotnet&logoColor=white)
 [![C#](https://img.shields.io/badge/C%23-Programming-blueviolet)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![Windows Service](https://img.shields.io/badge/Windows_Service-BackgroundService-blue.svg)](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-6.0)
 [![.NET 8](https://img.shields.io/badge/.NET-8-512BD4.svg)](https://dotnet.microsoft.com/)
 [![Serilog](https://img.shields.io/badge/Serilog-Logging-green.svg)](https://serilog.net/)
-[![Email Service](https://img.shields.io/badge/Email_Service-SMTP-blue.svg)](https://docs.microsoft.com/en-us/dotnet/api/system.net.mail.smtpclient?view=net-6.0)
-[![YouTube](https://img.shields.io/badge/YouTube-Video-red.svg)](https://www.youtube.com/watch?v=aHC-4ivVDEQ&ab_channel=RobertsDevTalk)
+![Email Service SMTP](https://img.shields.io/badge/Email%20Service%20SMTP-D14836?style=flat-square&logo=gmail&logoColor=white)
+![Microsoft Teams](https://img.shields.io/badge/Microsoft%20Teams-6264A7?style=flat-square&logo=microsoft-teams&logoColor=white)
+![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white)
+
 
 This repository contains a .NET Worker Windows Service implementation using `BackgroundService`. The service performs background tasks and demonstrates how to create a long-running service in a Windows environment by logging Computer Programming Jokes.
 
@@ -38,10 +41,14 @@ This repository contains a .NET Worker Windows Service implementation using `Bac
 - Long-running Windows Service using `BackgroundService`.
 - Background tasks and worker logic.
 - Logging Computer Programming Jokes with `Serilog` to the current directory.
-  (Creates a `Logs` folder in the project's root directory.)
+	- (Creates a `Logs` folder in the project's root directory.)
 - Email Service to send the jokes to the specified email address.
+	- Email settings are configurable in the `appsettings.json` file.
+	- Email settings include the SMTP server, port, email address, and password.
+	- Tested with Smtp4Dev. https://github.com/rnwood/smtp4dev
 - Timer settings to control the interval of the background tasks.
 - Microsoft Teams Channel Integration
+- Export text file with jokes
 
 ## Publishing
 
@@ -82,6 +89,10 @@ To publish the service as a Windows Service, follow these steps:
   [Microsoft Learning](https://learn.microsoft.com/en-us/dotnet/core/extensions/windows-service?pivots=dotnet-7-0).
 
 ## Version History
+- Version [1.0.2.0] 
+	- Added Export Service to export jokes to a text file.
+	- Refactored Worker Service so its' processes and other service calls are split into separate classes.
+	___
 - Version [1.0.1.2] 
 	- Refactored Serilog Configuration to separate class within Settings\ directory. 
 	- Renamed SmtpSettings to EmailSettings and made calls configurable

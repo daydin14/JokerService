@@ -1,7 +1,6 @@
 using System.Net;
 using System.Net.Mail;
 using JokerService.Settings;
-using Microsoft.Extensions.Options;
 
 namespace JokerService.Services
 {
@@ -11,11 +10,10 @@ namespace JokerService.Services
     /// <remarks>
     /// Initializes a new instance of the <see cref="EmailService"/> class.
     /// </remarks>
-    /// <param name="emailSettings">The Email settings.</param>
-    /// <param name="logger">The logger.</param>
-    public class EmailService(IOptions<EmailSettings> emailSettings, ILogger<EmailService> logger)
+    /// <param name="logger"></param>
+    /// <param name="emailSettings"></param>
+    public class EmailService(ILogger<EmailService> logger, EmailSettings emailSettings)
     {
-        private readonly EmailSettings _emailSettings = emailSettings.Value;
 
         /// <summary>
         /// Sends an email asynchronously.
@@ -26,15 +24,15 @@ namespace JokerService.Services
         /// <returns>An asynchronus task operation for sending emails.</returns>
         public async Task SendEmailAsync(string toAddress, string subject, string body)
         {
-            using var client = new SmtpClient(_emailSettings.Host, _emailSettings.Port)
+            using var client = new SmtpClient(emailSettings.Host, emailSettings.Port)
             {
-                Credentials = new NetworkCredential(_emailSettings.FromAddress, _emailSettings.Password),
-                EnableSsl = _emailSettings.EnableSsl
+                Credentials = new NetworkCredential(emailSettings.FromAddress, emailSettings.Password),
+                EnableSsl = emailSettings.EnableSsl
             };
 
             var mailMessage = new MailMessage
             {
-                From = new MailAddress(_emailSettings.FromAddress),
+                From = new MailAddress(emailSettings.FromAddress),
                 Subject = subject,
                 Body = body,
                 IsBodyHtml = false
